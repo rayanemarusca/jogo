@@ -1,0 +1,12 @@
+GEM
+  specs:
+    csv (1.0.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  csv
+
+BUNDLED WITH
+   2.1.4
