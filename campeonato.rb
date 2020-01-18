@@ -1,5 +1,5 @@
 class Campeonato
-
+  require "csv"
   def iniciar_campeonato
     puts "Bem-vindo ao Jogo de Arremessos!!"
     qtd_jogadores = 6
@@ -20,20 +20,25 @@ class Campeonato
   end
 
   def gerar_classificacao
+    CSV.open("Resultado_Partida.csv", "wb") do |csv|
+      csv << ["Jogadas", "Resultados"]
 
+      File.open("jogadas.txt") do |arquivo|
+        arquivo.each do |linha|
+          puts linha
+          linha1 = linha.gsub("   ", "x")
+          linha1 = linha1.gsub(" ", "")
+          puts linha1
+          v = linha1.split("x")
+          resultado =  RegrasDasJogadas.calcular_resultado_partida(v[2].to_i, v[3].to_i)
+          csv << [linha, "#{resultado[0]} x #{resultado[1]}"]
+        end
+      end
+    end
   end
 
   def ler_arquivo_jogadas
-    File.open("jogadas.txt") do |arquivo|
-      arquivo.each do |linha|
-        puts linha
-          linha1 = linha.gsub("   ", "x")
-          linha1 = linha1.gsub(" ", "")
-        puts linha1
-          v = linha1.split("x")
-        puts RegrasDasJogadas.calcular_resultado_partida(v[2], v[3])
-      end
-    end
+
   end
 
 end
@@ -53,10 +58,10 @@ class RegrasDasJogadas
 
     if pulos_jogador_em_casa > pulos_jagador_fora_de_casa
       return 3 + em_casa, 0 + fora_de_casa
-    elsif  pulos_jogador_em_casa = pulos_jagador_fora_de_casa
+    elsif  pulos_jogador_em_casa == pulos_jagador_fora_de_casa
       return 0 + em_casa, 2 + fora_de_casa
     elsif  pulos_jogador_em_casa < pulos_jagador_fora_de_casa
-      return 0 + em_casa, 0 + fora_de_casa
+      return 0 + em_casa, 3 + fora_de_casa
     end
   end
 end
@@ -101,7 +106,9 @@ jogador_ana.nome("Ana")
 jogador_maria = Jogador.new
 jogador_maria.nome("Maria")
 
-inicio.ler_arquivo_jogadas
+jogadores = jogador_egio, jogador_jaco, jogador_caio, jogador_pedro, jogador_ana, jogador_maria
+
+inicio.gerar_classificacao
 
 
 
