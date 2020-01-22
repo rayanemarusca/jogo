@@ -94,9 +94,17 @@ class RegrasDasJogadas
     #O vencedor será o jogador que obtiver maior soma de pontos, em todas as partidas
     ordenacao = hash.sort_by  {|key, value| value}
 
+    #total numero de vitorias por jogador
+    numero_vitoria = Util.contar_numero_de_vitoria_por_jogador(array)
 
-    numero_vitoria = Util.contar_numero_de_vitoria_por_jogador array
 
-    return ordenacao, numero_vitoria
+    ordenacao.each do |key, value|
+      num = numero_vitoria.select {|k,v| k == key.to_s}
+      num.each do |key, value1|
+        puts value1
+      end
+    end
+
+    return ordenacao
   end
 end

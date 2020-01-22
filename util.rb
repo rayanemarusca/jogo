@@ -46,9 +46,6 @@ class Util
       i = i + 4
     end
 
-    #total numero de vitorias por jogador
-    numero_vitoria = Util.contar_numero_de_vitoria_por_jogador(array)
-
     return  hash
   end
 
