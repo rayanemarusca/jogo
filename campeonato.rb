@@ -1,6 +1,7 @@
 class Campeonato
   require "csv"
   require "./regras_das_jogadas.rb"
+  require "./util.rb"
 
   def iniciar_campeonato
     puts "Bem-vindo ao Jogo de Arremessos!!"
@@ -22,23 +23,20 @@ class Campeonato
   end
 
   def gerar_classificacao
-    CSV.open("Resultado_de_Cada_JOGO.csv", "wb") do |csv|
-      csv << ["Jogadas", "Resultados"]
+    CSV.open("Total_de_Pulos_de_Cada_Jogo.csv", "wb") do |csv|
+      csv << [" Jogadas ", " Total de Pulos " , " Resultado "]
 
       File.open("jogadas.txt") do |arquivo|
         arquivo = arquivo.to_a
-
         i = 0
         while i < arquivo.length do
-          partida_1 =  RegrasDasJogadas.calcular_resultado_partida(arquivo[i])
-          partida_2 =  RegrasDasJogadas.calcular_resultado_partida(arquivo[i + 1])
-          partida_3 =  RegrasDasJogadas.calcular_resultado_partida(arquivo[i + 2])
+          partida_1 =  Util.pontuacao_partida_vetor(arquivo[i])
+          partida_2 =  Util.pontuacao_partida_vetor(arquivo[i + 1])
+          partida_3 =  Util.pontuacao_partida_vetor(arquivo[i + 2])
 
-          pontos_jogador_em_casa1 = partida_1[0] + partida_2[0] + partida_3[0]
-          pontos_jogador_fora_de_casa2 = partida_1[1] + partida_2[2] + partida_3[3]
+          resultado = RegrasDasJogadas.calcular_pulos_jogada(partida_1, partida_2, partida_3, arquivo[i])
 
-          resultado = RegrasDasJogadas.calcular_resultado_jogo(pontos_jogador_em_casa1, pontos_jogador_fora_de_casa2, arquivo[i])
-
+          csv << [resultado[0], "#{resultado[1]} x #{resultado[2]}", resultado[3]]
           i = i + 3
         end
       end
@@ -51,7 +49,7 @@ class Campeonato
 
       File.open("jogadas.txt") do |arquivo|
         arquivo.each do |linha|
-          resultado =  RegrasDasJogadas.calcular_resultado_partida(linha)
+          resultado =  RegrasDasJogadas.calcular_pontos_jogada(linha)
           csv << [linha, "#{resultado[0]} x #{resultado[1]}"]
         end
       end

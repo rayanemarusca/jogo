@@ -26,6 +26,7 @@ require './jogador.rb'
 
 
   inicio.gerar_resultado_partidas
+inicio.gerar_classificacao
 
 
 

@@ -1,0 +1,32 @@
+ Jogadas , Total de Pulos , Resultado
+
+EgioxJaco,6 x 10,Jaco
+EgioxCaio,1 x 2,Caio
+EgioxPedro,5 x 5,Empate
+EgioxAna,4 x 5,Ana
+EgioxMaria,4 x 6,Maria
+JacoxEgio,8 x 8,Empate
+JacoxCaio,2 x 2,Empate
+JacoxPedro,10 x 8,Jaco
+JacoxAna,16 x 19,Ana
+JacoxMaria,0 x 0,Jaco
+CaioxEgio,4 x 9,Egio
+CaioxJaco,14 x 17,Jaco
+CaioxPedro,17 x 19,Pedro
+CaioxAna,17 x 14,Caio
+CaioxMaria,7 x 6,Caio
+PedroxEgio,13 x 5,Pedro
+PedroxJaco,10 x 14,Jaco
+PedroxCaio,2 x 2,Empate
+PedroxAna,5 x 8,Ana
+PedroxMaria,6 x 9,Maria
+AnaxEgio,0 x 7,Egio
+AnaxJaco,7 x 7,Empate
+AnaxCaio,19 x 10,Ana
+AnaxPedro,14 x 15,Pedro
+AnaxMaria,0 x 2,Ana
+MariaxEgio,10 x 2,Maria
+MariaxJaco,14 x 16,Jaco
+MariaxCaio,14 x 9,Maria
+MariaxPedro,9 x 2,Maria
+MariaxAna,21 x 19,Maria
