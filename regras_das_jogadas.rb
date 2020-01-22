@@ -86,7 +86,9 @@ class RegrasDasJogadas
     return resultado[0], resultado[1], resultado[2], resultado[3], pontos_em_casa, pontos_fora_de_casa
   end
 
-  def self.calcular_resultado_campeonato
+  def self.calcular_classificacao array
+    tabela = Util.simplificar_array_jogador_pontuacao(array)
+
 
   end
 end

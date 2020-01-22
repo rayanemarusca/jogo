@@ -11,6 +11,32 @@ class Campeonato
   end
 
   def gerar_classificacao
+    CSV.open("Classificação.csv", "wb") do |csv|
+      csv << ["Classificação", " Jogador ", " Pontuação Total ", " Número de Vitórias"]
+
+      array = Array.new
+      File.open("jogadas.txt") do |arquivo|
+        arquivo = arquivo.to_a
+        i = 0
+        j= 0
+        while i < arquivo.length do
+          partida_1 =  Util.pontuacao_partida_vetor(arquivo[i])
+          partida_2 =  Util.pontuacao_partida_vetor(arquivo[i + 1])
+          partida_3 =  Util.pontuacao_partida_vetor(arquivo[i + 2])
+
+          partidas = [partida_1, partida_2, partida_3]
+
+          resultado =  RegrasDasJogadas.calcular_pontos_jogada(partidas, arquivo[i])
+          array[j] = resultado.to_s.sub("[","").sub("]","")
+          i = i + 3
+          j += 1
+        end
+        result = RegrasDasJogadas.calcular_classificacao(array)
+      end
+    end
+  end
+
+  def gerar_pontucao_jogadas
     CSV.open("Resultado_Pontução_de_Cada_Jogada.csv", "wb") do |csv|
       csv << ["Jogadas", " Total de Pulos ", " Resultado ", " Pontuacao "]
 
@@ -52,11 +78,6 @@ class Campeonato
       end
     end
   end
-
-  def ler_arquivo_jogadas
-
-  end
-
 end
 
 
