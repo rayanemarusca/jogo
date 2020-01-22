@@ -2,7 +2,6 @@ class Campeonato
   require "csv"
   require "./regras_das_jogadas.rb"
 
-
   def iniciar_campeonato
     puts "Bem-vindo ao Jogo de Arremessos!!"
     qtd_jogadores = 6
@@ -27,11 +26,22 @@ class Campeonato
       csv << ["Jogadas", "Resultados"]
 
       File.open("jogadas.txt") do |arquivo|
+        arquivo = arquivo.to_a
+
+        i = 0
+        while i < arquivo.length do
+          puts arquivo[i]
+          puts arquivo[i + 1]
+          puts arquivo[i + 2]
+          i = i + 3
+        end
+
+
         arquivo.each do |linha|
-          puts linha
+          # puts linha
           linha1 = linha.gsub("   ", "x")
           linha1 = linha1.gsub(" ", "")
-          puts linha1
+          # puts linha1
           v = linha1.split("x")
           resultado =  RegrasDasJogadas.calcular_resultado_partida(v[2].to_i, v[3].to_i)
           csv << [linha, "#{resultado[0]} x #{resultado[1]}"]

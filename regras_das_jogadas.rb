@@ -18,4 +18,11 @@ class RegrasDasJogadas
       return 0 + em_casa, 3 + fora_de_casa
     end
   end
+
+  def self.calcular_resultado_jogo
+  end
+
+  def self.calcular_resultado_campeonato
+  end
+
 end
