@@ -45,6 +45,37 @@ class Util
 
       i = i + 4
     end
+
+    #total numero de vitorias por jogador
+    numero_vitoria = Util.contar_numero_de_vitoria_por_jogador(array)
+
+    return  hash
+  end
+
+  def self.contar_numero_de_vitoria_por_jogador array
+    #Transformando o conteudo do array em uma hash com jogador e numero de vitorias do campeonato
+    i = 0
+    hash = {}
+
+    table = Array.new
+
+    array.each do |linha|
+      v = linha.split(",")
+
+      table[i] =  v[3]
+      table[i + 1] =  1
+
+      if hash.length > 0
+        hash.each do |key, value|
+          if key == table[i]
+            table[i + 1] = table[i + 1].to_i + value.to_i
+          end
+        end
+      end
+      hash = Hash[*table]
+
+      i = i + 2
+    end
     return  hash
   end
 end
