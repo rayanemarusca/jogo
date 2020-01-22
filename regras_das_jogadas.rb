@@ -89,9 +89,12 @@ class RegrasDasJogadas
   def self.calcular_classificacao array
     #total pontuação por jogador
     hash = Util.simplificar_array_jogador_pontuacao(array)
-    
-    ordenacao = hash.sort_by  {|key, value| value }
 
+    #Lista de classificação em ordem de pontuação
+    #O vencedor será o jogador que obtiver maior soma de pontos, em todas as partidas
+    ordenacao = hash.sort_by  {|key, value| value}
+
+    return ordenacao
     #total numero de vitorias por jogador
     hash = Util.simplificar_array_jogador_pontuacao(array)
 
