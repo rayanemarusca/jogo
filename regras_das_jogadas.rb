@@ -46,15 +46,12 @@ class RegrasDasJogadas
     return "#{v[0]}x#{v[1]}", total_pulos_jogador_em_casa1, total_pulos_jogador_fora_de_casa2,  vitorioso
   end
 
-  def self.calcular_pontos_jogada(linha)
-    #Transformando o conteudo da linha em vetor
-    linha1 = linha.gsub("   ", "x")
-    linha1 = linha1.gsub(" ", "")
-    v = linha1.split("x")
+  def self.calcular_pontos_jogada(partidas, linha)
+    resultado = RegrasDasJogadas.calcular_pulos_jogada(partidas[0], partidas[1], partidas[2], linha)
 
     #Pulos dos jogadores
-    pulos_jogador_em_casa = v[2].to_i
-    pulos_jagador_fora_de_casa = v[3].to_i
+    pulos_jogador_em_casa = resultado[1].to_i
+    pulos_jagador_fora_de_casa = resultado[2].to_i
 
     #Regras da partida
 
@@ -73,16 +70,21 @@ class RegrasDasJogadas
 
     #O jogador que obtiver o maior número de pulos de pedra na partida, recebe 3 pontos
     if pulos_jogador_em_casa > pulos_jagador_fora_de_casa
-      return 3 + em_casa, 0 + fora_de_casa
+      pontos_em_casa =  3 + em_casa
+      pontos_fora_de_casa = 0 + fora_de_casa
     elsif  pulos_jogador_em_casa == pulos_jagador_fora_de_casa
       #Em caso de empate, o jogador que jogar fora de casa, recebe 2 pontos.
-      return 0 + em_casa, 2 + fora_de_casa
+      pontos_em_casa = 0 + em_casa
+      pontos_fora_de_casa = 2 + fora_de_casa
     elsif  pulos_jogador_em_casa < pulos_jagador_fora_de_casa
-      return 0 + em_casa, 3 + fora_de_casa
+      pontos_em_casa = 0 + em_casa
+      pontos_fora_de_casa = 3 + fora_de_casa
     end
+
+    #[jogadores], [Total de pulos jogador em casa], [Total de pulos fora de casa], [jagador vencedor],
+    # [total_pontos_jogador_em_casa], [total_pontos_jogador_fora_de_casa]
+    return resultado[0], resultado[1], resultado[2], resultado[3], pontos_em_casa, pontos_fora_de_casa
   end
-
-
 
   def self.calcular_resultado_campeonato
 
