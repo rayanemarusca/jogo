@@ -24,5 +24,4 @@ class RegrasDasJogadas
 
   def self.calcular_resultado_campeonato
   end
-
 end
