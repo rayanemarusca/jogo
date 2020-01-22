@@ -24,7 +24,8 @@ require './jogador.rb'
 
   jogadores = jogador_egio, jogador_jaco, jogador_caio, jogador_pedro, jogador_ana, jogador_maria
 
-  inicio.gerar_classificacao
+
+  inicio.gerar_resultado_partidas
 
 
 

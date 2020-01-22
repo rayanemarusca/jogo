@@ -22,7 +22,7 @@ class Campeonato
   end
 
   def gerar_classificacao
-    CSV.open("Resultado_Partida.csv", "wb") do |csv|
+    CSV.open("Resultado_de_Cada_JOGO.csv", "wb") do |csv|
       csv << ["Jogadas", "Resultados"]
 
       File.open("jogadas.txt") do |arquivo|
@@ -30,20 +30,28 @@ class Campeonato
 
         i = 0
         while i < arquivo.length do
-          puts arquivo[i]
-          puts arquivo[i + 1]
-          puts arquivo[i + 2]
+          partida_1 =  RegrasDasJogadas.calcular_resultado_partida(arquivo[i])
+          partida_2 =  RegrasDasJogadas.calcular_resultado_partida(arquivo[i + 1])
+          partida_3 =  RegrasDasJogadas.calcular_resultado_partida(arquivo[i + 2])
+
+          pontos_jogador_em_casa1 = partida_1[0] + partida_2[0] + partida_3[0]
+          pontos_jogador_fora_de_casa2 = partida_1[1] + partida_2[2] + partida_3[3]
+
+          resultado = RegrasDasJogadas.calcular_resultado_jogo(pontos_jogador_em_casa1, pontos_jogador_fora_de_casa2, arquivo[i])
+
           i = i + 3
         end
+      end
+    end
+  end
 
+  def gerar_resultado_partidas
+    CSV.open("Resultado_Partida.csv", "wb") do |csv|
+      csv << ["Jogadas", "Resultados"]
 
+      File.open("jogadas.txt") do |arquivo|
         arquivo.each do |linha|
-          # puts linha
-          linha1 = linha.gsub("   ", "x")
-          linha1 = linha1.gsub(" ", "")
-          # puts linha1
-          v = linha1.split("x")
-          resultado =  RegrasDasJogadas.calcular_resultado_partida(v[2].to_i, v[3].to_i)
+          resultado =  RegrasDasJogadas.calcular_resultado_partida(linha)
           csv << [linha, "#{resultado[0]} x #{resultado[1]}"]
         end
       end
