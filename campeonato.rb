@@ -1,5 +1,8 @@
 class Campeonato
   require "csv"
+  require "./regras_das_jogadas.rb"
+
+
   def iniciar_campeonato
     puts "Bem-vindo ao Jogo de Arremessos!!"
     qtd_jogadores = 6
@@ -43,72 +46,7 @@ class Campeonato
 
 end
 
-class RegrasDasJogadas
 
-  def self.calcular_resultado_partida(pulos_jogador_em_casa, pulos_jagador_fora_de_casa)
-    em_casa = 0
-    if pulos_jogador_em_casa < 3
-      em_casa = -1
-    end
-
-    fora_de_casa = 0
-    if pulos_jagador_fora_de_casa < 3
-      fora_de_casa = -1
-    end
-
-    if pulos_jogador_em_casa > pulos_jagador_fora_de_casa
-      return 3 + em_casa, 0 + fora_de_casa
-    elsif  pulos_jogador_em_casa == pulos_jagador_fora_de_casa
-      return 0 + em_casa, 2 + fora_de_casa
-    elsif  pulos_jogador_em_casa < pulos_jagador_fora_de_casa
-      return 0 + em_casa, 3 + fora_de_casa
-    end
-  end
-end
-
-class Jogador
-
-  def nom
-    @nome
-  end
-
-  def nome(nome)
-    @nome = nome
-  end
-
-  def pontos
-    @pontos
-  end
-
-  def pontos(pontos)
-    @pontos = pontos
-  end
-end
-
-inicio = Campeonato.new
-inicio.iniciar_campeonato
-
-jogador_egio = Jogador.new
-jogador_egio.nome("Egio")
-
-jogador_jaco = Jogador.new
-jogador_jaco.nome("Jaco")
-
-jogador_caio = Jogador.new
-jogador_caio.nome("Caio")
-
-jogador_pedro = Jogador.new
-jogador_pedro.nome("Pedro")
-
-jogador_ana = Jogador.new
-jogador_ana.nome("Ana")
-
-jogador_maria = Jogador.new
-jogador_maria.nome("Maria")
-
-jogadores = jogador_egio, jogador_jaco, jogador_caio, jogador_pedro, jogador_ana, jogador_maria
-
-inicio.gerar_classificacao
 
 
 
