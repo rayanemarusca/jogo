@@ -33,11 +33,16 @@ class Campeonato
         end
         result = RegrasDasJogadas.calcular_classificacao(array)
 
-        classificacao = result.length
+        puts result
+        classificacao = 1
+        g = 0
 
-        result.each do |key, value|
-          csv << ["#{classificacao}°", key.upcase, value]
-          classificacao = classificacao - 1
+        while g < result.length do
+          if !result[g].nil?
+            csv << ["#{classificacao}°", result[g].upcase, result[g + 1], result[g + 2]]
+            classificacao = classificacao + 1
+          end
+          g = g + 3
         end
       end
     end

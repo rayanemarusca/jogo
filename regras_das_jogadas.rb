@@ -92,19 +92,77 @@ class RegrasDasJogadas
 
     #Lista de classificação em ordem de pontuação
     #O vencedor será o jogador que obtiver maior soma de pontos, em todas as partidas
-    ordenacao = hash.sort_by  {|key, value| value}
+    hash = hash.sort_by  {|key, value| value}.reverse!
 
     #total numero de vitorias por jogador
     numero_vitoria = Util.contar_numero_de_vitoria_por_jogador(array)
+    numero_vitoria = numero_vitoria.sort_by  {|key, value| value}.reverse!
 
+    #Inicializa variaveis
+    resultado = Array.new
+    jogador_1 = ""
+    total_pontos_jogador_1 = 0
+    total_vitorias_jogador_1 = 0
+    j = 0
 
-    ordenacao.each do |key, value|
-      num = numero_vitoria.select {|k,v| k == key.to_s}
-      num.each do |key, value1|
-        puts value1
+    numero_vitoria = Util.transformar_numero_vitoria_em_array(numero_vitoria)
+    hash.each do |key, value|
+      vitorias = 0
+
+      #busca total de vitoria do jogador key
+      i = 0
+      while i < numero_vitoria.length do
+        if numero_vitoria[i].downcase == key
+          vitorias = numero_vitoria[i + 1]
+        end
+        i = i + 2
       end
+
+      if jogador_1.length > 0
+        jogador_2 = key
+        total_pontos_jogador_2 = value
+        total_vitorias_jogador_2 = vitorias
+
+        #Verifica se teve empate => Jogador 1 vence o desempate
+        if total_pontos_jogador_1 == total_pontos_jogador_2 && total_vitorias_jogador_1 > total_vitorias_jogador_2
+
+          resultado[j] = jogador_1
+          resultado[j + 1] = total_pontos_jogador_1
+          resultado[j + 2] = total_vitorias_jogador_1
+
+          jogador_1 = jogador_2
+          total_pontos_jogador_1 = total_pontos_jogador_2
+          total_vitorias_jogador_1 = total_vitorias_jogador_2
+
+        #Verifica se teve empate => Jogador 2 vence o desempate
+        elsif total_pontos_jogador_1 == total_pontos_jogador_2 && total_vitorias_jogador_1 < total_vitorias_jogador_2
+          resultado[j] = jogador_2
+          resultado[j + 1] = total_pontos_jogador_2
+          resultado[j + 2] = total_vitorias_jogador_1
+        else
+          #continuar na ordem de numero de vitorias
+          resultado[j] = jogador_1
+          resultado[j + 1] = total_pontos_jogador_1
+          resultado[j + 2] = total_vitorias_jogador_1
+
+          jogador_1 = jogador_2
+          total_pontos_jogador_1 = total_pontos_jogador_2
+          total_vitorias_jogador_1 = total_vitorias_jogador_2
+        end
+
+      else
+        jogador_1 = key
+        total_pontos_jogador_1 = value
+        total_vitorias_jogador_1 = vitorias
+      end
+
+      j = j + 3
     end
 
-    return ordenacao
+    resultado[j] = jogador_1
+    resultado[j + 1] = total_pontos_jogador_1
+    resultado[j + 2] = total_vitorias_jogador_1
+
+    return resultado
   end
 end

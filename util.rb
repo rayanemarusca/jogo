@@ -75,4 +75,9 @@ class Util
     end
     return  hash
   end
+
+  def self.transformar_numero_vitoria_em_array array
+    array_resposta = array.to_s.gsub("[", "").gsub("]", "").gsub(" ", "").gsub("\\", "").gsub("\"", "")
+    return array_resposta.split(",")
+  end
 end
